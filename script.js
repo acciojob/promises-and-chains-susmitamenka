@@ -1,31 +1,33 @@
 //your JS code here. If required.
-document.getElementById("voteForm").addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent default form submission
+document.getElementById('votingForm').addEventListener('submit', function (e) {
+      e.preventDefault(); // prevent default form submission
 
-    const name = document.getElementById("name").value.trim();
-    const age = document.getElementById("age").value.trim();
-	let button = document.getElementById("btn").value
+      const name = document.getElementById('name').value.trim();
+      const age = document.getElementById('age').value.trim();
 
-    // Validation: Check if both fields are filled
-    if (!name || !age) {
+      // 🛑 Validation: Ensure fields aren't empty
+      if (!name || !age) {
         alert("Please enter valid details.");
         return;
-    }
+      }
 
-    // Convert age to a number
-    const ageValue = parseInt(age, 10);
-
-    // Create a promise that resolves or rejects based on age
-    new Promise((resolve, reject) => {
+      // ✅ Promise for age check
+      const checkEligibility = new Promise((resolve, reject) => {
         setTimeout(() => {
-            if (ageValue > 18) {
-                resolve(`Welcome, ${name}. You can vote`.);
-            } else {
-                reject(`Oh sorry ${name}. You aren't old enough`.);
-            }
-        }, 4000); // 4-second delay
-    })
-    .then((message) => alert(message))
-    .catch((error) => alert(error));
-});
+          if (parseInt(age) > 18) {
+            resolve();
+          } else {
+            reject();
+          }
+        }, 4000); // ⏳ 4-second delay
+      });
 
+      // 📣 Handling Promise outcome
+      checkEligibility
+        .then(() => {
+          alert(`Welcome, ${name}. You can vote.`);
+        })
+        .catch(() => {
+          alert(`Oh sorry ${name}. You aren't old enough.`);
+        });
+    });
