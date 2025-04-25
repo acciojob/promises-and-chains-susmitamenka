@@ -4,6 +4,7 @@ document.getElementById("voteForm").addEventListener("submit", function (event) 
 
     const name = document.getElementById("name").value.trim();
     const age = document.getElementById("age").value.trim();
+	let button = document.getElementById("btn").value
 
     // Validation: Check if both fields are filled
     if (!name || !age) {
@@ -18,9 +19,9 @@ document.getElementById("voteForm").addEventListener("submit", function (event) 
     new Promise((resolve, reject) => {
         setTimeout(() => {
             if (ageValue > 18) {
-                resolve(Welcome, ${name}. You can vote.);
+                resolve(`Welcome, ${name}. You can vote`.);
             } else {
-                reject(Oh sorry ${name}. You aren't old enough.);
+                reject(`Oh sorry ${name}. You aren't old enough`.);
             }
         }, 4000); // 4-second delay
     })
